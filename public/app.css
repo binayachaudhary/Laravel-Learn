@@ -1,0 +1,12 @@
+body{
+    
+    max-width: 600px;
+    margin: auto;
+}
+.art{
+   
+    text-align: left;
+}
+article{
+    text-align: justify;
+}
