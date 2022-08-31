@@ -1,36 +1,25 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class post 
+use function PHPUnit\Framework\returnValueMap;
+
+class Post extends Model
 {
-    public $title;
-    public $date;
-    public $slug;
-    public $body;
+    use HasFactory;
 
-    public function __construct($title , $date , $slug , $body )
-    {
-        $this->title= $title;
-        $this->date= $date;
-        $this->slug= $slug;
-        $this->body= $body;
+   
 
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
-    public static function all(){
-        $files = File::files(resource_path("posts/"));  
-        return array_map(function ($file){
-            return $file->getContents();
-        }  , $files);
-    }
-    public static function find($slug){
-        if(!file_exists($path =resource_path("posts/{$slug}.html"))){
-            throw new ModelNotFoundException();
-        }
-        return cache()->remember("posts.{$slug}",1200, fn() => file_get_contents($path));
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
-?>
