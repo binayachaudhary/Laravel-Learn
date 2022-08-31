@@ -12,8 +12,11 @@
 <body>
     @foreach ($posts as $post)
 <div class="art"> 
-<h1><a href="/post/<?= $post->slug ?>"><?= $post->title ?></a></h1>
-<article> </article>
+<h1> <a href="/post/{{$post->slug}}"><?= $post->title ?></a></h1>
+<p>By {{$post->user->name}} {{$post->category->name}}</p>
+<article> 
+    {{$post->body}}
+</article>
 </div>
 @endforeach
     
